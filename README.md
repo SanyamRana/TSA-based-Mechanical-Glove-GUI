@@ -1,68 +1,93 @@
-# Twisted String Actuator GUI for Assistive Hand Rehabilitation
+# 🦾 GUI-Based Twisted String Actuator / Servo Control System
 
 ## Overview
-This project implements a **GUI-based control system for a motor-driven Twisted String Actuator (TSA)** using an **Arduino Nano**, designed for **physiotherapy and exoskeletal hand rehabilitation**. The system enables controlled finger movement for individuals who have lost partial or complete hand function due to **stroke or neurological impairment**.
+This project implements a **desktop-based GUI application for controlling and monitoring a motor-driven actuator** (servo or Twisted String Actuator) using an **Arduino Nano** over serial communication.
 
-The GUI allows **independent, real-time control of each finger**, making it suitable for targeted rehabilitation exercises and assistive hand motion.
+The system is designed for **assistive device prototyping, physiotherapy research, and exoskeletal hand control experiments**, particularly where **independent, precise, finger-level actuation** is required for individuals with impaired hand mobility due to **stroke or neurological injury**.
+
+The application enables **manual, real-time control** of actuator angle, speed, and direction, while providing **live feedback visualization, error analysis, and data logging**.
+
+---
+
+## Key Features
+- GUI-based real-time actuator control
+- Target angle selection (0°–180°)
+- Speed control (fast to slow)
+- Clockwise / counter-clockwise direction control
+- Robust serial communication with Arduino Nano
+- Live feedback monitoring from hardware
+- Real-time plotting of commanded vs feedback angle
+- Error computation and statistics
+- CSV data export for analysis
+- Modular and extensible architecture
 
 ---
 
 ## System Architecture
-The system consists of three main components:
-- **GUI Application**: Sends finger-level control commands
-- **Microcontroller Unit (Arduino Nano)**: Processes commands and controls actuators
-- **Motor-Driven Twisted String Actuators**: Convert motor rotation into linear motion for finger actuation
+The system consists of four primary layers:
 
-Commands from the GUI are transmitted to the Arduino, which drives the motor controller to actuate the TSA mechanism accordingly.
+### 1. GUI Layer (Tkinter)
+- User controls for angle, speed, and direction
+- START / STOP / RESET controls
+- Live status and statistics display
 
----
+### 2. Serial Communication Layer
+- Handles bidirectional communication with Arduino
+- Sends control commands
+- Receives real-time feedback
+- Includes error handling and reconnection logic
 
-## Features
-- Independent control of each finger
-- Real-time motor actuation via GUI commands
-- Modular design for scalable finger control
-- Designed for assistive and rehabilitation-focused applications
-- Low-cost and extensible hardware setup
+### 3. Data Management Layer
+- Stores commanded angle, feedback angle, timestamps
+- Computes error metrics (average, max, standard deviation)
+- Maintains bounded data buffers for efficiency
 
----
-
-## Hardware Requirements
-- Arduino Nano  
-- DC motor / geared motor  
-- Motor driver module  
-- Twisted String Actuator mechanism  
-- Power supply  
-- Exoskeletal hand or finger actuation setup  
+### 4. Visualization Layer
+- Embedded Matplotlib plots
+- Live comparison of commanded vs feedback motion
+- Real-time error visualization
 
 ---
 
-## Software Requirements
-- Arduino IDE  
-- GUI application (custom-built)  
-- Serial communication interface  
+## GUI Controls
+- **Angle Slider:** Sets desired actuator angle
+- **Speed Slider:** Controls movement speed (1 = fast, 5 = slow)
+- **Direction Buttons:** Clockwise / Counter-clockwise rotation
+- **START:** Begin actuator movement
+- **STOP:** Halt movement immediately
+- **Reset:** Return system to default state
+- **Save Data:** Export collected data to CSV
+- **Clear Data:** Clear stored plots and statistics
 
 ---
 
-## Applications
-- Hand physiotherapy and rehabilitation
-- Exoskeletal hand assistance
-- Assistive robotics research
-- Human–machine interaction studies
+## Real-Time Visualization
+Two plots are displayed during operation:
+
+1. **Commanded vs Feedback Angle**
+   - Visual comparison of target and actual actuator motion
+
+2. **Error Plot**
+   - Difference between commanded and feedback angle
+
+Plots update continuously and auto-scale as new data arrives.
 
 ---
 
-## Future Improvements
-- Sensor-based feedback (force or position sensing)
-- Safety limits and calibration routines
-- Automated therapy modes
-- Closed-loop control algorithms
+## Data Logging and Analysis
+The application logs:
+- Timestamp
+- Commanded angle
+- Feedback angle
+- Error (commanded − feedback)
+
+Data can be exported as a **CSV file** for:
+- Performance analysis
+- Calibration
+- Reporting and documentation
 
 ---
 
-## Disclaimer
-This project is intended for **research and educational purposes only**. It is not a certified medical device and should not be used for clinical treatment without proper validation and supervision.
+## Serial Communication Protocol
 
----
-
-## License
-This project is open-source and available under the MIT License.
+### Commands Sent to Arduino
