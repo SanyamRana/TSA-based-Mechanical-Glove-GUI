@@ -1,4 +1,4 @@
-# 🦾 GUI-Based Twisted String Actuator / Servo Control System
+# GUI-Based Twisted String Actuator / Servo Control System
 
 ## Overview
 This project implements a **desktop-based GUI application for controlling and monitoring a motor-driven actuator** (servo or Twisted String Actuator) using an **Arduino Nano** over serial communication.
